@@ -101,14 +101,9 @@ def get_commodities():
                 datapoints = value
 
         commodities = Commodities(name=name, interval=interval, unit=unit, datapoints=datapoints)
+        commodities_set.append(commodities)
 
-        print(name)
-        print(interval)
-        print(unit)
-        print(datapoints)
-        print('...')
-
-    return(commodities)
+    return(commodities_set)
 
 def get_news():
 

@@ -22,7 +22,6 @@ class SetOfNews():
         self.relevance_score_definition = relevance_score_definition
         self.feed = feed
 
-
 class Commodities():
     def __init__(self, name, interval, unit, datapoints):
         self.name = name

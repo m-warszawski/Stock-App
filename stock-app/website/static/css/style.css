@@ -1,0 +1,115 @@
+:root {
+  --scrollbar-thumb-color: #E9EAF2;
+  --scrollbar-track-color: #494C66;
+  --body-background-color: #171926;
+  --body-text-color: #ffffff;
+  --nav-background-color: #0b1016;
+  --nav-link-color: #ffffff;
+  --nav-link-hover-color: #4b10f4;
+  --section-background-color: #1b1d34;
+  --news-link-color: #21a5f7;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-color);
+    border-radius: 24px 24px;
+}
+
+body {
+    background-color: var(--body-background-color);
+    color: var(--body-text-color);
+}
+
+nav {
+    background-color: var(--nav-background-color);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+}
+
+nav ul {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul a {
+    color: var(--nav-link-color) !important;
+    border-left: 4px solid var(--nav-background-color);
+}
+
+nav ul a:hover {
+    color: var(--nav-link-hover-color) !important;
+    border-left: 4px solid var(--nav-link-hover-color);
+}
+
+.navbar-brand {
+    display: flex !important;
+    justify-content: center;
+}
+
+.navbar-brand a {
+    text-align: center;
+}
+
+.navbar-brand img {
+    width: 75px;
+    margin: 25px 0;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    width: 75px;
+    margin: 25px 0;
+    transform: scale(1.2);
+}
+
+main {
+    margin-left: 200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+section {
+    background-color: var(--section-background-color);
+    border-radius: 24px;
+    padding: 20px;
+    margin: 40px 20px;
+}
+
+#news {
+    height: 550px;
+    padding-right: 20px;
+}
+
+#news a {
+    text-decoration: none;
+    color: var(--news-link-color);
+    font-weight: bold;
+}
+
+#news a:hover {
+    text-decoration: underline;
+}
+
+.single-news {
+    padding: 10px;
+    margin: 10px 10px;
+    border: 1px solid var(--body-text-color);
+    border-radius: 8px;
+    flex: 0 0 395px;
+}
+
+#news #news-wall {
+    display: flex;
+    overflow-x: scroll;
+}

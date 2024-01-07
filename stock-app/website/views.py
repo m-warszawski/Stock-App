@@ -8,9 +8,10 @@ def index(request):
 
     forex_data = get_forex()
     commodities_data = get_commodities()
-    news = get_news()
+    news_data = get_news()
+    # process_news_data = process_news()
 
-    return render(request, 'index.html', {'data': [commodities_data]})
+    return render(request, 'index.html', {'forex': [forex_data], 'commodities': [commodities_data], 'news': [news_data]})
     
 def get_forex():
 
@@ -61,6 +62,9 @@ def get_forex():
         
         forex_data_sets.append(forex)
 
+        # print("===== FOREX =====")
+        # print(forex_data_sets)
+
     return(forex_data_sets)
 
 def get_commodities():
@@ -102,11 +106,11 @@ def get_commodities():
 
         commodities = Commodities(name=name, interval=interval, unit=unit, datapoints=datapoints)
 
-        print(name)
-        print(interval)
-        print(unit)
-        print(datapoints)
-        print('...')
+        # print(name)
+        # print(interval)
+        # print(unit)
+        # print(datapoints)
+        # print('...')
 
     return(commodities)
 
@@ -137,7 +141,11 @@ def get_news():
     process_news(feed)
 
     set1 = SetOfNews(number_of_items, sentiment_score_definition, 
-                     relevance_score_definition, feed)
+                     relevance_score_definition, feed);
+
+
+    print("===== NEWS =====")
+    print(set1)
     return(set1)
 
 def process_news(feed):
@@ -151,6 +159,7 @@ def process_news(feed):
         time_published = ""
         authors = []
         summary = ""
+        source = ""
         source = ""
         topics = ""
         overall_sentiment_score = ""

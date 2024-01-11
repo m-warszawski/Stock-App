@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <div class="container-fluid">
         <div class="row">
             <!-- Menu z lewej strony -->
@@ -45,86 +44,100 @@
                 <section id="forex">
                     <h1>Forex</h1>
                     <hr>
-                    {% for forex_entry in forex %}
-                    <p>From Currency Code: {{ forex_entry.0.from_currency_code }}</p>
-                    <p>From Currency Name: {{ forex_entry.0.from_currency_name }}</p>
-                    <p>To Currency Code: {{ forex_entry.0.to_currency_code }}</p>
-                    <p>To Currency Name: {{ forex_entry.0.to_currency_name }}</p>
-                    <p>Exchange Rate: {{ forex_entry.0.exchange_rate }}</p>
-                    {% endfor %}
+                    {% if forex %}
+                        {% for forex_entry in forex %}
+                            <p>From Currency Code: {{ forex_entry.0.from_currency_code }}</p>
+                            <p>From Currency Name: {{ forex_entry.0.from_currency_name }}</p>
+                            <p>To Currency Code: {{ forex_entry.0.to_currency_code }}</p>
+                            <p>To Currency Name: {{ forex_entry.0.to_currency_name }}</p>
+                            <p>Exchange Rate: {{ forex_entry.0.exchange_rate }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>Error! Failed to load data.</p>
+                    {% endif %}
                 </section>
 
                 <section id="news">
                     <h1>News</h1>
                     <hr>
-                    <div id="news-wall">
+                    {% if news %}
+                        <div id="news-wall">
                         {% for entry in news.0.feed %}
-                        <div class="single-news {% if forloop.first %}active{% endif %}">
-                            <p><i class="fa fa-calendar"></i> {{ entry.time_published }}</p>
-                            <a href="{{ entry.url }}" target="_blank">
-                                <p>{{ entry.title }}</p>
-                            </a>
-                            <p>{{ entry.summary }}</p>
-                            <p><b>Source:</b> {{ entry.source }}</p>
-                        </div>
+                            <div class="single-news {% if forloop.first %}active{% endif %}">
+                                <p><i class="fa fa-calendar"></i> {{ entry.time_published }}</p>
+                                <a href="{{ entry.url }}" target="_blank">
+                                    <p>{{ entry.title }}</p>
+                                </a>
+                                <p>{{ entry.summary }}</p>
+                                <p><b>Source:</b> {{ entry.source }}</p>
+                            </div>
                         {% endfor %}
-                    </div>
+                        </div>
+                    {% else %}
+                        <p>Error! Failed to load data.</p>
+                    {% endif %}
+
+
                 </section>
 
                 <section id="commodities">
                     <h1>Commodities</h1>
                     <hr>
-                    <p>Name: {{ commodities.0.name }}</p>
-                    <p>Interval: {{ commodities.0.interval }}</p>
-                    <p>Unit: {{ commodities.0.unit }}</p>
-
-                    <canvas id="commoditiesChart" width="400" height="200"></canvas>
+                    {% if commodities %}
+                        <p>Name: {{ commodities.0.name }}</p>
+                        <p>Interval: {{ commodities.0.interval }}</p>
+                        <p>Unit: {{ commodities.0.unit }}</p>
+                        <canvas id="commoditiesChart" width="400" height="200"></canvas>
+                    {% else %}
+                        <p>Error! Failed to load data.</p>
+                    {% endif %}
                 </section>
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         var chartData = {{ commodities.0.datapoints| safe }};
-                        console.log(chartData);
+                        if(chartData) {
 
-                        var chartLabels = [];
-                        var chartValues = [];
+                            var chartLabels = [];
+                            var chartValues = [];
 
-                        for (let i = chartData.length - 1; i >= 0; i--) {
-                            chartLabels.push(chartData[i].date);
-                            chartValues.push(parseFloat(chartData[i].value));
-                        }
-
-                        chartLabels = chartLabels.slice(125, chartData.length);
-                        chartValues = chartValues.slice(125, chartData.length);
-
-                        console.log(chartLabels);
-                        console.log(chartValues);
-
-                        var ctx = document.getElementById('commoditiesChart').getContext('2d');
-
-                        var data = {
-                            labels: chartLabels,
-                            datasets: [{
-                                label: '{{ commodities.0.name }}',
-                                backgroundColor: 'rgb(242, 56, 90, 0.2)',
-                                borderColor: 'rgb(242, 56, 90, 1)',
-                                borderWidth: 2,
-                                data: chartValues
-                            }]
-                        };
-
-                        var options = {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                            for (let i = chartData.length - 1; i >= 0; i--) {
+                                chartLabels.push(chartData[i].date);
+                                chartValues.push(parseFloat(chartData[i].value));
                             }
-                        };
 
-                        var commoditiesChart = new Chart(ctx, {
-                            type: 'line',
-                            data: data,
-                            options: options
-                        });
+                            chartLabels = chartLabels.slice(125, chartData.length);
+                            chartValues = chartValues.slice(125, chartData.length);
+
+                            console.log(chartLabels);
+                            console.log(chartValues);
+
+                            var ctx = document.getElementById('commoditiesChart').getContext('2d');
+
+                            var data = {
+                                labels: chartLabels,
+                                datasets: [{
+                                    label: '{{ commodities.0.name }}',
+                                    backgroundColor: 'rgb(242, 56, 90, 0.2)',
+                                    borderColor: 'rgb(242, 56, 90, 1)',
+                                    borderWidth: 2,
+                                    data: chartValues
+                                }]
+                            };
+
+                            var options = {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            };
+
+                            var commoditiesChart = new Chart(ctx, {
+                                type: 'line',
+                                data: data,
+                                options: options
+                            });
+                        }
                     });
                 </script>
             </main>

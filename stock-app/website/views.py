@@ -4,16 +4,16 @@ from .models import SetOfNews, News, Commodities, Forex
 import os
 import requests
 
-def index(request):
 
+def index(request):
     forex_data = get_forex()
     commodities_data = get_commodities()
-    news = get_news()
+    news_data = get_news()
 
-    return render(request, 'index.html', {'data': [commodities_data]})
-    
+    return render(request, 'index.html', {'commodities': [commodities_data], 'forex': [forex_data], 'news': [news_data]})
+
+
 def get_forex():
-
     load_dotenv()
     API_KEY = os.getenv('API_KEY')
 
@@ -24,10 +24,11 @@ def get_forex():
     #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=GBP&to_currency=PLN&apikey=',
     #            'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=AED&to_currency=PLN&apikey=']
 
-    api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=demo']
+    api_urls = [
+        'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=demo']
 
     for url in api_urls:
-        #r = requests.get(url+API_KEY)
+        # r = requests.get(url+API_KEY)
         r = requests.get(url)
         data = r.json()
 
@@ -56,15 +57,15 @@ def get_forex():
                 else:
                     pass
 
-        forex = Forex(from_currency_code=from_currency_code, from_currency_name=from_currency_name, 
-                    to_currency_code=to_currency_code, to_currency_name=to_currency_name, exchange_rate=exchange_rate)
-        
+        forex = Forex(from_currency_code=from_currency_code, from_currency_name=from_currency_name,
+                      to_currency_code=to_currency_code, to_currency_name=to_currency_name, exchange_rate=exchange_rate)
+
         forex_data_sets.append(forex)
 
-    return(forex_data_sets)
+    return (forex_data_sets)
+
 
 def get_commodities():
-
     load_dotenv()
     API_KEY = os.getenv('API_KEY')
 
@@ -76,12 +77,12 @@ def get_commodities():
     #            'https://www.alphavantage.co/query?function=ALUMINUM&interval=monthly&apikey=']
 
     api_urls = ['https://www.alphavantage.co/query?function=WTI&interval=monthly&apikey=demo',
-                 'https://www.alphavantage.co/query?function=NATURAL_GAS&interval=monthly&apikey=demo',
-                 'https://www.alphavantage.co/query?function=COPPER&interval=monthly&apikey=demo',
+                'https://www.alphavantage.co/query?function=NATURAL_GAS&interval=monthly&apikey=demo',
+                'https://www.alphavantage.co/query?function=COPPER&interval=monthly&apikey=demo',
                 'https://www.alphavantage.co/query?function=ALUMINUM&interval=monthly&apikey=demo']
-    
+
     for url in api_urls:
-        #r = requests.get(url+API_KEY)
+        # r = requests.get(url+API_KEY)
         r = requests.get(url)
         data = r.json()
 
@@ -101,16 +102,15 @@ def get_commodities():
                 datapoints = value
 
         commodities = Commodities(name=name, interval=interval, unit=unit, datapoints=datapoints)
-        commodities_set.append(commodities)
 
-    return(commodities_set)
+    return (commodities)
+
 
 def get_news():
-
     load_dotenv()
     API_KEY = os.getenv('API_KEY')
 
-    url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo'#+API_KEY
+    url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo'  # +API_KEY
     r = requests.get(url)
     data = r.json()
 
@@ -131,12 +131,12 @@ def get_news():
 
     process_news(feed)
 
-    set1 = SetOfNews(number_of_items, sentiment_score_definition, 
+    set1 = SetOfNews(number_of_items, sentiment_score_definition,
                      relevance_score_definition, feed)
-    return(set1)
+    return (set1)
+
 
 def process_news(feed):
-
     news = []
 
     for element in feed:
@@ -149,7 +149,7 @@ def process_news(feed):
         source = ""
         topics = ""
         overall_sentiment_score = ""
-        overall_sentiment_label =""
+        overall_sentiment_label = ""
 
         for key, value in element.items():
             if key == "title":
@@ -173,8 +173,8 @@ def process_news(feed):
             else:
                 pass
 
-        n = News(title, url, time_published, authors, summary, 
+        n = News(title, url, time_published, authors, summary,
                  source, topics, overall_sentiment_score, overall_sentiment_label)
         news.append(n)
 
-    return(news)
+    return (news)

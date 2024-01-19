@@ -37,3 +37,23 @@ class Forex():
         self.to_currency_code = to_currency_code
         self.to_currency_name = to_currency_name
         self.exchange_rate = exchange_rate
+
+class Indicator():
+    def __init__(self, name, interval, unit, datapoints):
+        self.name = name
+        self.interval = interval
+        self.unit = unit
+        self.datapoints = datapoints
+
+class Stock():
+    def __init__(self, symbol, opening, high, low, price, volume, latest_trading_day, previous_close, change, change_percent):
+        self.symbol = symbol
+        self.opening = opening
+        self.high = high
+        self.low = low
+        self.price = price
+        self.volume = volume
+        self.latest_trading_day = latest_trading_day
+        self.previous_close = previous_close
+        self.change = change
+        self.change_percent = change_percent

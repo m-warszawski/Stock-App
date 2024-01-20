@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container-fluid">
         <div class="row">
-            <!-- Menu z lewej strony -->
+
             <nav class="col-md-2 d-none d-md-block sidebar">
                 <div class="sidebar-sticky">
                     <a class="navbar-brand" href="#">
@@ -27,8 +27,23 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#indicators">
+                                <i class="fa fa-line-chart"></i> Indicators
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#crypto">
+                                <i class="fa fa-desktop"></i> Crypto
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#commodities">
-                                <i class="fa fa-line-chart"></i> Commodities
+                                <i class="fa fa-shopping-cart"></i> Commodities
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#stocks">
+                                <i class="fa fa-money"></i> Stocks
                             </a>
                         </li>
                     </ul>
@@ -38,7 +53,7 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
                 <section id="home">
-                    HOME
+                    <h1>- STOCK APP - </h1>
                 </section>
 
                 <section id="forex">
@@ -46,9 +61,9 @@
                     <hr>
                     {% if forex %}
                         {% for forex_entry in forex %}
-                            <p>From Currency Code: {{ forex_entry.0.from_currency_code }}</p>
-                            <p>From Currency Name: {{ forex_entry.0.from_currency_name }}</p>
-                            <p>To Currency Code: {{ forex_entry.0.to_currency_code }}</p>
+                            <p>From Currency Code: {{ forex_entry.1.from_currency_code }}</p>
+                            <p>From Currency Name: {{ forex_entry.2.from_currency_name }}</p>
+                            <p>To Currency Code: {{ forex_entry.3.to_currency_code }}</p>
                             <p>To Currency Name: {{ forex_entry.0.to_currency_name }}</p>
                             <p>Exchange Rate: {{ forex_entry.0.exchange_rate }}</p>
                         {% endfor %}
@@ -76,70 +91,116 @@
                     {% else %}
                         <p>Error! Failed to load data.</p>
                     {% endif %}
-
-
                 </section>
+
+                <section id="indicators">
+                    <h1>Indicators</h1>
+                    <hr>
+                        <div id="indicatorsButtons">
+                            <button type="button" class="btn btn-secondary" onclick="changeIndicatorsChart('first')">GDP per Capita</button>
+                            <button type="button" class="btn btn-secondary" onclick="changeIndicatorsChart('second')">Effective Federal Funds Rate</button>
+                            <button type="button" class="btn btn-secondary" onclick="changeIndicatorsChart('fourth')">Unemployment Rate</button>
+                        </div>
+                    <hr>
+                    {% if indicators %}
+                        {% for indicator in indicators %}
+
+                            <div id="indicatorsFirstBlock">
+                                <h4>{{ indicator.1.name }} </h4>
+                                <p>Unit: <b>{{ indicator.1.unit }}</b></p>
+                                <p>Interval: <b>{{ indicator.1.interval }}</b></p>
+                                <canvas id="indicatorsFirstChart" width="400" height="150">{{ indicator.1.datapoints }}</canvas>
+                            </div>
+
+                            <div id="indicatorsSecondBlock">
+                                <h4>{{ indicator.2.name }} </h4>
+                                <p>Unit: <b>{{ indicator.2.unit }}</b></p>
+                                <p>Interval: <b>{{ indicator.2.interval }}</b></p>
+                                <canvas id="indicatorsSecondChart" width="400" height="150">{{ indicator.2.datapoints }}</canvas>
+                            </div>
+
+                            <div id="indicatorsFourthBlock">
+                                <h4>{{ indicator.4.name }} </h4>
+                                <p>Unit: <b>{{ indicator.4.unit }}</b></p>
+                                <p>Interval: <b>{{ indicator.4.interval }}</b></p>
+                                <canvas id="indicatorsFourthChart" width="400" height="150">{{ indicator.4.datapoints }}</canvas>
+                            </div>
+                            
+                        {% endfor %}
+                    {% else %}
+                        <p>Error! Failed to load indicator data.</p>
+                    {% endif %}
+                </section>
+
+                 <section id="crypto">
+                    <h1>Crypto</h1>
+                    <hr>
+                    {% if crypto %}
+                        {% for crypto_entry in crypto %}
+                            <p>From Currency Code: {{ crypto_entry.from_currency_code }}</p>
+                            <p>From Currency Name: {{ crypto_entry.from_currency_name }}</p>
+                            <p>To Currency Code: {{ crypto_entry.to_currency_code }}</p>
+                            <p>To Currency Name: {{ crypto_entry.to_currency_name }}</p>
+                            <p>Exchange Rate: {{ crypto_entry.exchange_rate }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>Error! Failed to load crypto data.</p>
+                    {% endif %}
+                 </section>
+
 
                 <section id="commodities">
                     <h1>Commodities</h1>
                     <hr>
+                        <div id="commoditiesButtons">
+                            <button type="button" class="btn btn-secondary" onclick="changeCommoditiesChart('zero')">Crude Oil Prices WTI </button>
+                            <button type="button" class="btn btn-secondary" onclick="changeCommoditiesChart('first')">Natural Gas Spot Price </button>
+                            <button type="button" class="btn btn-secondary" onclick="changeCommoditiesChart('second')">Price of Copper </button>
+                            <button type="button" class="btn btn-secondary" onclick="changeCommoditiesChart('third')">Price of Aluminum </button>
+                        </div>
+                    <hr>
                     {% if commodities %}
-                        <p>Name: {{ commodities.0.name }}</p>
-                        <p>Interval: {{ commodities.0.interval }}</p>
-                        <p>Unit: {{ commodities.0.unit }}</p>
-                        <canvas id="commoditiesChart" width="400" height="200"></canvas>
+                        {% for commodity in commodities %}
+
+                            <div id="commoditiesZeroBlock">
+                                <h4>{{ commodity.0.name }} </h4>
+                                <p>Unit: <b>{{ commodity.0.unit }}</b></p>
+                                <p>Interval: <b>{{ commodity.0.interval }}</b></p>
+                                <canvas id="commoditiesZeroChart" width="400" height="150">{{ commodity.0.datapoints }}</canvas>
+                            </div>
+
+                            <div id="commoditiesFirstBlock">
+                                <h4>{{ commodity.1.name }} </h4>
+                                <p>Unit: <b>{{ commodity.1.unit }}</b></p>
+                                <p>Interval: <b>{{ commodity.1.interval }}</b></p>
+                                <canvas id="commoditiesFirstChart" width="400" height="150">{{ commodity.1.datapoints }}</canvas>
+                            </div>
+
+                            <div id="commoditiesSecondBlock">
+                                <h4>{{ commodity.2.name }} </h4>
+                                <p>Unit: <b>{{ commodity.2.unit }}</b></p>
+                                <p>Interval: <b>{{ commodity.2.interval }}</b></p>
+                                <canvas id="commoditiesSecondChart" width="400" height="150">{{ commodity.2.datapoints }}</canvas>
+                            </div>
+
+                            <div id="commoditiesThirdBlock">
+                                <h4>{{ commodity.3.name }} </h4>
+                                <p>Unit: <b>{{ commodity.3.unit }}</b></p>
+                                <p>Interval: <b>{{ commodity.3.interval }}</b></p>
+                                <canvas id="commoditiesThirdChart" width="400" height="150">{{ commodity.3.datapoints }}</canvas>
+                            </div>
+
+                        {% endfor %}
                     {% else %}
-                        <p>Error! Failed to load data.</p>
+                        <p>Error! Failed to load indicator data.</p>
                     {% endif %}
                 </section>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var chartData = {{ commodities.0.datapoints| safe }};
-                        if(chartData) {
 
-                            var chartLabels = [];
-                            var chartValues = [];
+                 <section id="stocks">
+                    <h1>Stocks</h1>
+                    <hr>
+                 </section>
 
-                            for (let i = chartData.length - 1; i >= 0; i--) {
-                                chartLabels.push(chartData[i].date);
-                                chartValues.push(parseFloat(chartData[i].value));
-                            }
-
-                            chartLabels = chartLabels.slice(125, chartData.length);
-                            chartValues = chartValues.slice(125, chartData.length);
-
-                            console.log(chartLabels);
-                            console.log(chartValues);
-
-                            var ctx = document.getElementById('commoditiesChart').getContext('2d');
-
-                            var data = {
-                                labels: chartLabels,
-                                datasets: [{
-                                    label: '{{ commodities.0.name }}',
-                                    backgroundColor: 'rgb(242, 56, 90, 0.2)',
-                                    borderColor: 'rgb(242, 56, 90, 1)',
-                                    borderWidth: 2,
-                                    data: chartValues
-                                }]
-                            };
-
-                            var options = {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            };
-
-                            var commoditiesChart = new Chart(ctx, {
-                                type: 'line',
-                                data: data,
-                                options: options
-                            });
-                        }
-                    });
-                </script>
             </main>
         </div>
     </div>

@@ -6,15 +6,15 @@ import requests
 
 
 def index(request):
-    stocks = get_stocks()
-    indicators = get_indicators()
+    stocks_data = get_stocks()
+    indicators_data = get_indicators()
     forex_data = get_forex()
     commodities_data = get_commodities()
     news_data = get_news()
     crypto_data = get_crypto()
 
-    return render(request, 'index.html', {'commodities': [commodities_data], 'forex': [forex_data], 'news': [news_data], 
-                                          'crypto': [crypto_data], 'indicators': [indicators], 'stocks': [stocks]})
+    return render(request, 'index.html', {'commodities': [commodities_data], 'forex': [forex_data], 'news': [news_data],
+                                          'crypto': [crypto_data], 'indicators': [indicators_data], 'stocks': [stocks_data]})
 
 
 def get_forex():
@@ -159,6 +159,8 @@ def get_crypto():
                       to_currency_code=to_currency_code, to_currency_name=to_currency_name, exchange_rate=exchange_rate)
 
         crypto_data_sets.append(crypto)
+
+        return(crypto_data_sets)
 
 
 def get_indicators():

@@ -7,7 +7,9 @@
   --nav-link-color: #ffffff;
   --nav-link-hover-color: #4b10f4;
   --section-background-color: #1b1d34;
+  --single-news-background-color: #35374b;
   --news-link-color: #21a5f7;
+  --button-text-color: #000000;
 }
 
 ::-webkit-scrollbar {
@@ -29,6 +31,7 @@ body {
     color: var(--body-text-color);
 }
 
+/* Left Menu */
 nav {
     background-color: var(--nav-background-color);
     height: 100vh;
@@ -73,6 +76,7 @@ nav ul a:hover {
     transform: scale(1.2);
 }
 
+/* Main Content */
 main {
     margin-left: 200px;
     padding-top: 20px;
@@ -90,6 +94,11 @@ h4{
     text-align: center;
 }
 
+#home > h1{
+    text-align: center;
+}
+
+/* News */
 #news {
     padding-right: 20px;
 }
@@ -110,7 +119,7 @@ h4{
     border: 1px solid var(--body-text-color);
     border-radius: 8px;
     flex: 0 0 395px;
-    background-color: #35374b;
+    background-color: var(--single-news-background-color);
 }
 
 #news #news-wall {
@@ -118,6 +127,7 @@ h4{
     overflow-x: scroll;
 }
 
+/* Indicators / Commodities  */
 #indicators p, #news p, #commodities p{
     margin-bottom: 4px !important;
 }
@@ -145,7 +155,23 @@ h4{
     display: none;
 }
 
-#home > h1{
-    text-align: center;
+button{
+    color: var(--button-text-color) !important;
+}
+
+/* Forex */
+table, tr, td, th{
+    color: var(--body-text-color) !important;
+    text-align: center !important;
+    background-color: var(--single-news-background-color) !important;
+}
+
+th{
+    background-color: #2a2c3c !important;
+}
+
+.rate{
+    color: green !important;
+    font-weight: bold;
 }
 

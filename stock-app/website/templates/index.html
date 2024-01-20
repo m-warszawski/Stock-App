@@ -22,28 +22,23 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#news">
-                                <i class="fa fa-newspaper-o"></i> News
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#indicators">
                                 <i class="fa fa-line-chart"></i> Indicators
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#crypto">
-                                <i class="fa fa-desktop"></i> Crypto
+                            <a class="nav-link" href="#news">
+                                <i class="fa fa-newspaper-o"></i> News
                             </a>
                         </li>
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#crypto">#}
+{#                                <i class="fa fa-desktop"></i> Crypto#}
+{#                            </a>#}
+{#                        </li>#}
                         <li class="nav-item">
                             <a class="nav-link" href="#commodities">
                                 <i class="fa fa-shopping-cart"></i> Commodities
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#stocks">
-                                <i class="fa fa-money"></i> Stocks
                             </a>
                         </li>
                     </ul>
@@ -60,34 +55,40 @@
                     <h1>Forex</h1>
                     <hr>
                     {% if forex %}
+                        <table class="table table-bordered table-hover">
+                        <tr>
+                            <th scope="col">From code</th>
+                            <th scope="col">From currency</th>
+                            <th scope="col">To code</th>
+                            <th scope="col">To currency</th>
+                            <th scope="col">Exchange rate</th>
+                        </tr>
                         {% for forex_entry in forex %}
-                            <p>From Currency Code: {{ forex_entry.1.from_currency_code }}</p>
-                            <p>From Currency Name: {{ forex_entry.2.from_currency_name }}</p>
-                            <p>To Currency Code: {{ forex_entry.3.to_currency_code }}</p>
-                            <p>To Currency Name: {{ forex_entry.0.to_currency_name }}</p>
-                            <p>Exchange Rate: {{ forex_entry.0.exchange_rate }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p>Error! Failed to load data.</p>
-                    {% endif %}
-                </section>
+                            <tr>
+                                <td>{{ forex_entry.0.from_currency_code }}</td>
+                                <td>{{ forex_entry.0.from_currency_name }}</td>
+                                <td>{{ forex_entry.0.to_currency_code }}</td>
+                                <td>{{ forex_entry.0.to_currency_name }}</td>
+                                <td class="rate">{{ forex_entry.0.exchange_rate }}</td>
+                            </tr>
 
-                <section id="news">
-                    <h1>News</h1>
-                    <hr>
-                    {% if news %}
-                        <div id="news-wall">
-                        {% for entry in news.0.feed %}
-                            <div class="single-news {% if forloop.first %}active{% endif %}">
-                                <p><i class="fa fa-calendar"></i> {{ entry.time_published }}</p>
-                                <a href="{{ entry.url }}" target="_blank">
-                                    <p>{{ entry.title }}</p>
-                                </a>
-                                <p>{{ entry.summary }}</p>
-                                <p><b>Source:</b> {{ entry.source }}</p>
-                            </div>
+                             <tr>
+                                <td>{{ forex_entry.0.from_currency_code }}</td>
+                                <td>{{ forex_entry.0.from_currency_name }}</td>
+                                <td>{{ forex_entry.0.to_currency_code }}</td>
+                                <td>{{ forex_entry.0.to_currency_name }}</td>
+                                <td class="rate">{{ forex_entry.0.exchange_rate }}</td>
+                            </tr>
+
+                             <tr>
+                                <td>{{ forex_entry.0.from_currency_code }}</td>
+                                <td>{{ forex_entry.0.from_currency_name }}</td>
+                                <td>{{ forex_entry.0.to_currency_code }}</td>
+                                <td>{{ forex_entry.0.to_currency_name }}</td>
+                                <td class="rate">{{ forex_entry.0.exchange_rate }}</td>
+                            </tr>
                         {% endfor %}
-                        </div>
+                        </table>
                     {% else %}
                         <p>Error! Failed to load data.</p>
                     {% endif %}
@@ -132,22 +133,42 @@
                     {% endif %}
                 </section>
 
-                 <section id="crypto">
-                    <h1>Crypto</h1>
-                    <hr>
-                    {% if crypto %}
-                        {% for crypto_entry in crypto %}
-                            <p>From Currency Code: {{ crypto_entry.from_currency_code }}</p>
-                            <p>From Currency Name: {{ crypto_entry.from_currency_name }}</p>
-                            <p>To Currency Code: {{ crypto_entry.to_currency_code }}</p>
-                            <p>To Currency Name: {{ crypto_entry.to_currency_name }}</p>
-                            <p>Exchange Rate: {{ crypto_entry.exchange_rate }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p>Error! Failed to load crypto data.</p>
-                    {% endif %}
-                 </section>
+{#                 <section id="crypto">#}
+{#                    <h1>Crypto</h1>#}
+{#                    <hr>#}
+{#                    {% if crypto %}#}
+{#                        {% for crypto_entry in crypto %}#}
+{#                            <p>From Currency Code: {{ crypto_entry.from_currency_code }}</p>#}
+{#                            <p>From Currency Name: {{ crypto_entry.from_currency_name }}</p>#}
+{#                            <p>To Currency Code: {{ crypto_entry.to_currency_code }}</p>#}
+{#                            <p>To Currency Name: {{ crypto_entry.to_currency_name }}</p>#}
+{#                            <p>Exchange Rate: {{ crypto_entry.exchange_rate }}</p>#}
+{#                        {% endfor %}#}
+{#                    {% else %}#}
+{#                        <p>Error! Failed to load crypto data.</p>#}
+{#                    {% endif %}#}
+{#                 </section>#}
 
+                <section id="news">
+                    <h1>News</h1>
+                    <hr>
+                    {% if news %}
+                        <div id="news-wall">
+                        {% for entry in news.0.feed %}
+                            <div class="single-news {% if forloop.first %}active{% endif %}">
+                                <p><i class="fa fa-calendar"></i> {{ entry.time_published }}</p>
+                                <a href="{{ entry.url }}" target="_blank">
+                                    <p>{{ entry.title }}</p>
+                                </a>
+                                <p>{{ entry.summary }}</p>
+                                <p><b>Source:</b> {{ entry.source }}</p>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>Error! Failed to load data.</p>
+                    {% endif %}
+                </section>
 
                 <section id="commodities">
                     <h1>Commodities</h1>
@@ -195,11 +216,6 @@
                         <p>Error! Failed to load indicator data.</p>
                     {% endif %}
                 </section>
-
-                 <section id="stocks">
-                    <h1>Stocks</h1>
-                    <hr>
-                 </section>
 
             </main>
         </div>

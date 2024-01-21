@@ -1,5 +1,4 @@
 function changeIndicatorsChart(number){
-
     if(number==="first"){
         document.getElementById("indicatorsFirstBlock").style.display="block";
         document.getElementById("indicatorsSecondBlock").style.display="none";
@@ -15,11 +14,9 @@ function changeIndicatorsChart(number){
         document.getElementById("indicatorsSecondBlock").style.display="none";
         document.getElementById("indicatorsFourthBlock").style.display="block";
     }
-
 }
 
 function changeCommoditiesChart(number){
-
     if(number==="zero"){
         document.getElementById("commoditiesZeroBlock").style.display="block";
         document.getElementById("commoditiesFirstBlock").style.display="none";
@@ -44,5 +41,4 @@ function changeCommoditiesChart(number){
         document.getElementById("commoditiesSecondBlock").style.display="none";
         document.getElementById("commoditiesThirdBlock").style.display="block";
     }
-
 }

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
 
             <nav class="col-md-2 d-none d-md-block sidebar">
@@ -89,28 +89,24 @@
                     <hr>
                     {% if indicators %}
                         {% for indicator in indicators %}
-
                             <div id="indicatorsFirstBlock">
                                 <h4>{{ indicator.1.name }} </h4>
                                 <p>Unit: <b>{{ indicator.1.unit }}</b></p>
                                 <p>Interval: <b>{{ indicator.1.interval }}</b></p>
                                 <canvas id="indicatorsFirstChart" width="400" height="150">{{ indicator.1.datapoints }}</canvas>
                             </div>
-
                             <div id="indicatorsSecondBlock">
                                 <h4>{{ indicator.2.name }} </h4>
                                 <p>Unit: <b>{{ indicator.2.unit }}</b></p>
                                 <p>Interval: <b>{{ indicator.2.interval }}</b></p>
                                 <canvas id="indicatorsSecondChart" width="400" height="150">{{ indicator.2.datapoints }}</canvas>
                             </div>
-
                             <div id="indicatorsFourthBlock">
                                 <h4>{{ indicator.4.name }} </h4>
                                 <p>Unit: <b>{{ indicator.4.unit }}</b></p>
                                 <p>Interval: <b>{{ indicator.4.interval }}</b></p>
                                 <canvas id="indicatorsFourthChart" width="400" height="150">{{ indicator.4.datapoints }}</canvas>
                             </div>
-                            
                         {% endfor %}
                     {% else %}
                         <p>Error! Failed to load indicator data.</p>
@@ -166,35 +162,30 @@
                     <hr>
                     {% if commodities %}
                         {% for commodity in commodities %}
-
                             <div id="commoditiesZeroBlock">
                                 <h4>{{ commodity.0.name }} </h4>
                                 <p>Unit: <b>{{ commodity.0.unit }}</b></p>
                                 <p>Interval: <b>{{ commodity.0.interval }}</b></p>
                                 <canvas id="commoditiesZeroChart" width="400" height="150">{{ commodity.0.datapoints }}</canvas>
                             </div>
-
                             <div id="commoditiesFirstBlock">
                                 <h4>{{ commodity.1.name }} </h4>
                                 <p>Unit: <b>{{ commodity.1.unit }}</b></p>
                                 <p>Interval: <b>{{ commodity.1.interval }}</b></p>
                                 <canvas id="commoditiesFirstChart" width="400" height="150">{{ commodity.1.datapoints }}</canvas>
                             </div>
-
                             <div id="commoditiesSecondBlock">
                                 <h4>{{ commodity.2.name }} </h4>
                                 <p>Unit: <b>{{ commodity.2.unit }}</b></p>
                                 <p>Interval: <b>{{ commodity.2.interval }}</b></p>
                                 <canvas id="commoditiesSecondChart" width="400" height="150">{{ commodity.2.datapoints }}</canvas>
                             </div>
-
                             <div id="commoditiesThirdBlock">
                                 <h4>{{ commodity.3.name }} </h4>
                                 <p>Unit: <b>{{ commodity.3.unit }}</b></p>
                                 <p>Interval: <b>{{ commodity.3.interval }}</b></p>
                                 <canvas id="commoditiesThirdChart" width="400" height="150">{{ commodity.3.datapoints }}</canvas>
                             </div>
-
                         {% endfor %}
                     {% else %}
                         <p>Error! Failed to load indicator data.</p>

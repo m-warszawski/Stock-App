@@ -10,6 +10,8 @@
   --single-news-background-color: #35374b;
   --news-link-color: #21a5f7;
   --button-text-color: #000000;
+  --th-background-color: #2a2c3c;
+  --rate-text-color: #72ff72;
 }
 
 ::-webkit-scrollbar {
@@ -47,12 +49,12 @@ nav ul {
 
 nav ul a {
     color: var(--nav-link-color) !important;
-    border-left: 4px solid var(--nav-background-color);
+    border-left: 4px solid var(--nav-background-color) !important;
 }
 
 nav ul a:hover {
     color: var(--nav-link-hover-color) !important;
-    border-left: 4px solid var(--nav-link-hover-color);
+    border-left: 4px solid var(--nav-link-hover-color) !important;
 }
 
 .navbar-brand {
@@ -167,11 +169,11 @@ table, tr, td, th{
 }
 
 th{
-    background-color: #2a2c3c !important;
+    background-color: var(--th-background-color) !important;
 }
 
 .rate{
-    color: green !important;
+    color: var(--rate-text-color) !important;
     font-weight: bold;
 }
 

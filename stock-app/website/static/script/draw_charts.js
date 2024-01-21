@@ -49,12 +49,10 @@
 
 function convertToJSON(dataString) {
     try {
-        // Zamiana pojedynczych cudzysłowów na podwójne i usuwanie apostrofów
         const jsonString = dataString.replace(/'/g, "\"").replace(/(\w+:)|(\w+ :)/g, function(matchedStr) {
             return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
         });
 
-        // Parsowanie ciągu tekstowego jako JSON
         const jsonData = JSON.parse(jsonString);
 
         return jsonData;
@@ -73,5 +71,4 @@ function convertToJSON(dataString) {
      drawChart("commoditiesFirstChart", "#218fa6", "line", "-");
      drawChart("commoditiesSecondChart", "#218fa6", "line", "-");
      drawChart("commoditiesThirdChart", "#218fa6", "line", "-");
-
  });

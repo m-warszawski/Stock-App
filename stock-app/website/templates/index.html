@@ -65,27 +65,11 @@
                         </tr>
                         {% for forex_entry in forex %}
                             <tr>
-                                <td>{{ forex_entry.0.from_currency_code }}</td>
-                                <td>{{ forex_entry.0.from_currency_name }}</td>
-                                <td>{{ forex_entry.0.to_currency_code }}</td>
-                                <td>{{ forex_entry.0.to_currency_name }}</td>
-                                <td class="rate">{{ forex_entry.0.exchange_rate }}</td>
-                            </tr>
-
-                             <tr>
-                                <td>{{ forex_entry.0.from_currency_code }}</td>
-                                <td>{{ forex_entry.0.from_currency_name }}</td>
-                                <td>{{ forex_entry.0.to_currency_code }}</td>
-                                <td>{{ forex_entry.0.to_currency_name }}</td>
-                                <td class="rate">{{ forex_entry.0.exchange_rate }}</td>
-                            </tr>
-
-                             <tr>
-                                <td>{{ forex_entry.0.from_currency_code }}</td>
-                                <td>{{ forex_entry.0.from_currency_name }}</td>
-                                <td>{{ forex_entry.0.to_currency_code }}</td>
-                                <td>{{ forex_entry.0.to_currency_name }}</td>
-                                <td class="rate">{{ forex_entry.0.exchange_rate }}</td>
+                                <td>{{ forex_entry.from_currency_code }}</td>
+                                <td>{{ forex_entry.from_currency_name }}</td>
+                                <td>{{ forex_entry.to_currency_code }}</td>
+                                <td>{{ forex_entry.to_currency_name }}</td>
+                                <td class="rate">{{ forex_entry.exchange_rate }}</td>
                             </tr>
                         {% endfor %}
                         </table>

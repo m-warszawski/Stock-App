@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from .models import SetOfNews, News, Commodities, Forex, Indicator, Stock
 import os
 import requests
+from datetime import datetime
 
 
 def index(request):
@@ -13,26 +14,30 @@ def index(request):
     news_data = get_news()
     crypto_data = get_crypto()
 
-    return render(request, 'index.html', {'commodities': [commodities_data], 'forex': [forex_data], 'news': [news_data],
-                                          'crypto': [crypto_data], 'indicators': [indicators_data], 'stocks': [stocks_data]})
+    return render(request, 'index.html', {'commodities': [commodities_data], 'forex': forex_data, 'news': [news_data],
+                                          'crypto': crypto_data, 'indicators': [indicators_data], 'stocks': [stocks_data]})
 
 
 def get_forex():
     load_dotenv()
-    API_KEY = os.getenv('API_KEY')
+    API_KEY = os.getenv('API_KEY2')
 
     forex_data_sets = []
 
-    # api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=PLN&apikey=',
-    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=EUR&to_currency=PLN&apikey=',
-    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=GBP&to_currency=PLN&apikey=',
-    #            'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=AED&to_currency=PLN&apikey=']
+    # api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=PLN&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=EUR&to_currency=PLN&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=GBP&to_currency=PLN&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=AED&to_currency=PLN&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=USD&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=ETH&to_currency=USD&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=DOGE&to_currency=USD&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USDT&to_currency=USD&apikey='+API_KEY2]
 
-    api_urls = [
-        'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=demo']
+    api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=demo',
+                'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo']
 
     for url in api_urls:
-        # r = requests.get(url+API_KEY)
+
         r = requests.get(url)
         data = r.json()
 
@@ -71,14 +76,14 @@ def get_forex():
 
 def get_commodities():
     load_dotenv()
-    API_KEY = os.getenv('API_KEY')
+    API_KEY = os.getenv('API_KEY2')
 
     commodities_set = []
 
-    # api_urls = ['https://www.alphavantage.co/query?function=WTI&interval=monthly&apikey=',
-    #             'https://www.alphavantage.co/query?function=NATURAL_GAS&interval=monthly&apikey=',
-    #             'https://www.alphavantage.co/query?function=COPPER&interval=monthly&apikey=',
-    #            'https://www.alphavantage.co/query?function=ALUMINUM&interval=monthly&apikey=']
+    # api_urls = ['https://www.alphavantage.co/query?function=WTI&interval=monthly&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=NATURAL_GAS&interval=monthly&apikey='+API_KEY2,
+    #             'https://www.alphavantage.co/query?function=COPPER&interval=monthly&apikey='+API_KEY,2
+    #             'https://www.alphavantage.co/query?function=ALUMINUM&interval=monthly&apikey='+API_KEY2]
 
     api_urls = ['https://www.alphavantage.co/query?function=WTI&interval=monthly&apikey=demo',
                 'https://www.alphavantage.co/query?function=NATURAL_GAS&interval=monthly&apikey=demo',
@@ -86,7 +91,6 @@ def get_commodities():
                 'https://www.alphavantage.co/query?function=ALUMINUM&interval=monthly&apikey=demo']
 
     for url in api_urls:
-        # r = requests.get(url+API_KEY)
         r = requests.get(url)
         data = r.json()
 
@@ -117,7 +121,7 @@ def get_crypto():
 
     crypto_data_sets = []
 
-    api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=USD&apikey=demo']
+    api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo']
     
     # api_urls = ['https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=USD&apikey='+API_KEY,
     #             'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=ETH&to_currency=USD&apikey='+API_KEY,
@@ -126,7 +130,6 @@ def get_crypto():
 
 
     for url in api_urls:
-        # r = requests.get(url+API_KEY)
         r = requests.get(url)
         data = r.json()
 
@@ -182,7 +185,6 @@ def get_indicators():
     #            'https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey='+API_KEY]
 
     for url in api_urls:
-        # r = requests.get(url+API_KEY)
         r = requests.get(url)
         data = r.json()
 
@@ -221,7 +223,6 @@ def get_stocks():
     #            'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=TSLA&apikey='+API_KEY]
 
     for url in api_urls:
-        # r = requests.get(url+API_KEY)
         r = requests.get(url)
         data = r.json()
 
@@ -275,9 +276,10 @@ def get_stocks():
 
 def get_news():
     load_dotenv()
-    API_KEY = os.getenv('API_KEY')
+    API_KEY = os.getenv('API_KEY2')
 
-    url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo'  # +API_KEY
+    url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo'
+    #url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=TSLA&apikey='+API_KEY2
     r = requests.get(url)
     data = r.json()
 
@@ -345,3 +347,4 @@ def process_news(feed):
         news.append(n)
 
     return (news)
+

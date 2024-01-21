@@ -1,7 +1,7 @@
 # Stock App
 An application presenting financial and stock market data in a modern online panel.
 
-![App screenshot](ścieżka/do/obrazu.jpg)
+![App screenshot](screenshot.png)
 
 ## Technologies
 - Python
